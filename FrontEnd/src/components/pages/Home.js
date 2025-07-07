@@ -77,6 +77,11 @@ export default function Home() {
       />
 
       <div className="container py-2">
+        <div className="d-flex justify-content-end mb-3">
+          <Link to="/employees/add" className="btn btn-outline-success px-4">
+            <i className="fas fa-user-plus me-2"></i> Add Employee
+          </Link>
+        </div>
         <table className="table table-bordered shadow-sm">
           <thead className="table-light">
             <tr>

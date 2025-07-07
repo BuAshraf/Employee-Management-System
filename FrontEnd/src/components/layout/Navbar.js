@@ -141,24 +141,19 @@ export default function Navbar() {
         {/* Collapsible nav items */}
         <div className={`collapse navbar-collapse ${!isCollapsed ? 'show' : ''}`} id="navbarSupportedContent">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-            <li className="nav-item">
-              <Link className={`nav-link px-3 ${isActive('/')}`} to="/">
-                <i className="fas fa-tachometer-alt me-1"></i>
-                Dashboard
-              </Link>
-            </li>
+
 
             <li className="nav-item">
-              <Link className={`nav-link px-3 ${isActive('/employees')}`} to="/employees">
+              <Link className={`nav-link px-3 ${isActive('/')}`} to="/">
                 <i className="fas fa-users me-1"></i>
                 Employees
               </Link>
             </li>
 
             <li className="nav-item">
-              <Link className={`nav-link px-3 ${isActive('/employees/add')}`} to="/employees/add">
-                <i className="fas fa-user-plus me-1"></i>
-                Add Employee
+              <Link className={`nav-link px-3 ${isActive('/dashboard')}`} to="/dashboard">
+                <i className="fas fa-tachometer-alt me-1"></i>
+                Dashboard
               </Link>
             </li>
 
@@ -204,7 +199,7 @@ export default function Navbar() {
               <ul className="dropdown-menu dropdown-menu-end">
                 <li>
                   <Link className="dropdown-item" to="/employees/add">
-                    <i className="fas fa-user-plus me-2 text-primary"></i>Add Employee
+                    <i className="fas fa-user-plus me-2 text-success"></i>Add Employee
                   </Link>
                 </li>
                 <li>
@@ -213,10 +208,10 @@ export default function Navbar() {
                   </Link>
                 </li>
                 <li><hr className="dropdown-divider" /></li>
-                 <li>
-                   <button className="dropdown-item" type="button" onClick={(e) => e.preventDefault()}>
-                     <i className="fas fa-download me-2 text-info"></i>Export Data
-                   </button>
+                <li>
+                  <button className="dropdown-item" type="button" onClick={(e) => e.preventDefault()}>
+                    <i className="fas fa-download me-2 text-info"></i>Export Data
+                  </button>
                  </li>
               </ul>
             </li>

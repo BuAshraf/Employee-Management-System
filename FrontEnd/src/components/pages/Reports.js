@@ -158,29 +158,29 @@ const Reports = () => {
           <button className="btn btn-outline-success px-4 me-2" onClick={handleSendReport}>
             <i className="fas fa-envelope me-2"></i>Email Report to EMS Support Team
           </button>
-          <Link to="/" className="btn btn-outline-primary px-4">
-            <i className="fas fa-arrow-left me-2"></i>Back to Dashboard
+          <Link to="/" className="btn btn-outline-primary px-4 me-2">
+            <i className="fas fa-arrow-left me-2"></i>Back to Home
           </Link>
         </div>
-      {/* Report sent popup */}
-      {showReportPopup && (
-        <div style={{
-          position: 'fixed',
-          top: 80,
-          right: 30,
-          background: '#e6f7e6',
-          color: '#218838',
-          border: '1.5px solid #b2dfb2',
-          borderRadius: 8,
-          padding: '14px 28px',
-          fontWeight: 600,
-          fontSize: 18,
-          zIndex: 3000,
-          boxShadow: '0 2px 12px rgba(0,0,0,0.10)'
-        }}>
-          Report sent to EMS Support Team 😁👍.
-        </div>
-      )}
+        {/* Report sent popup */}
+        {showReportPopup && (
+          <div style={{
+            position: 'fixed',
+            top: 80,
+            right: 30,
+            background: '#e6f7e6',
+            color: '#218838',
+            border: '1.5px solid #b2dfb2',
+            borderRadius: 8,
+            padding: '14px 28px',
+            fontWeight: 600,
+            fontSize: 18,
+            zIndex: 3000,
+            boxShadow: '0 2px 12px rgba(0,0,0,0.10)'
+          }}>
+            Report sent to EMS Support Team 😁👍.
+          </div>
+        )}
       </div>
 
       {/* Report Type Selector */}
@@ -189,21 +189,24 @@ const Reports = () => {
           <div className="btn-group" role="group">
             <button
               type="button"
-              className={`btn ${selectedReport === 'department' ? 'btn-primary' : 'btn-outline-primary'}`}
+              className={`btn btn-outline-primary px-4 me-2${selectedReport === 'department' ? ' active' : ''}`}
+              style={selectedReport === 'department' ? { backgroundColor: '#0d6efd', color: '#fff', borderColor: '#0d6efd' } : {}}
               onClick={() => setSelectedReport('department')}
             >
               Department Analysis
             </button>
             <button
               type="button"
-              className={`btn ${selectedReport === 'salary' ? 'btn-primary' : 'btn-outline-primary'}`}
+              className={`btn btn-outline-primary px-4 me-2${selectedReport === 'salary' ? ' active' : ''}`}
+              style={selectedReport === 'salary' ? { backgroundColor: '#0d6efd', color: '#fff', borderColor: '#0d6efd' } : {}}
               onClick={() => setSelectedReport('salary')}
             >
               Salary Distribution
             </button>
             <button
               type="button"
-              className={`btn ${selectedReport === 'trend' ? 'btn-primary' : 'btn-outline-primary'}`}
+              className={`btn btn-outline-primary px-4 me-2${selectedReport === 'trend' ? ' active' : ''}`}
+              style={selectedReport === 'trend' ? { backgroundColor: '#0d6efd', color: '#fff', borderColor: '#0d6efd' } : {}}
               onClick={() => setSelectedReport('trend')}
             >
               Hiring Trends
@@ -353,17 +356,17 @@ const Reports = () => {
         <div className="card-body">
           <div className="row">
             <div className="col-md-4">
-              <button className="btn btn-outline-success w-100 mb-2">
+              <button className="btn btn-outline-success px-4 me-2 w-100 mb-2">
                 <i className="fas fa-file-excel me-2"></i>Export to Excel
               </button>
             </div>
             <div className="col-md-4">
-              <button className="btn btn-outline-danger w-100 mb-2">
+              <button className="btn btn-outline-danger px-4 me-2 w-100 mb-2">
                 <i className="fas fa-file-pdf me-2"></i>Export to PDF
               </button>
             </div>
             <div className="col-md-4">
-              <button className="btn btn-outline-info w-100 mb-2">
+              <button className="btn btn-outline-primary px-4 me-2 w-100 mb-2">
                 <i className="fas fa-file-csv me-2"></i>Export to CSV
               </button>
             </div>

@@ -56,21 +56,23 @@ function App() {
           {/* main content */}
           <main className="container-fluid mt-3 mb-5 flex-grow-1">
             <Routes>
-              {/* Dashboard Home */}
+              {/*  Home */}
               <Route path="/" element={<Home />} />
 
-              {/* Employee Management */}
+              {/* Dashboard */}
+              <Route
+                path="/dashboard"
+                element={
+                  <Suspense fallback={<div>Loading Dashboard...</div>}>
+                    {React.createElement(lazyLoad(() => import('./components/dashboard/Dashboard')))}
+                  </Suspense>
+                }
+              />
+
+              {/* Home/All Employees */}
               <Route
                 path="/employees"
-                element={
-                  <>
-                    <PageHeader
-                      title="Employee Management"
-                      subtitle="Manage your employees here."
-                    />
-                    <EmployeeList />
-                  </>
-                }
+                element={<Home />}
               />
 
               <Route
@@ -78,7 +80,8 @@ function App() {
                 element={
                   <>
                     <PageHeader
-                      title="Add New Employee"
+                      icon={undefined}
+                      title="Add Employee"
                       subtitle="Enter the details of the new employee."
                     />
                     <AddEmployee />
@@ -91,6 +94,7 @@ function App() {
                 element={
                   <>
                     <PageHeader
+                      icon={undefined}
                       title="Edit Employee"
                       subtitle="Update the employee's information."
                     />
@@ -103,7 +107,11 @@ function App() {
                 path="/employees/view/:id"
                 element={
                   <>
-                    <PageHeader title="Employee Details" />
+                    <PageHeader
+                      icon={undefined}
+                      title="Employee Details"
+                      subtitle="View employee details."
+                    />
                     <EmployeeDetails />
                   </>
                 }
