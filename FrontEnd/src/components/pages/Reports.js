@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import EmployeeService from '../../services/EmployeeService';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, LineChart, Line } from 'recharts';
 import emailjs from 'emailjs-com';
-import PageHeader from '../layout/PageHeader';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChartBar } from '@fortawesome/free-solid-svg-icons';
 
@@ -143,18 +143,21 @@ const Reports = () => {
 
   return (
     <div className="container mt-4">
-      <PageHeader
+      {/* <PageHeader
         icon={ChartBarIcon}
         title="Reports & Analytics"
         subtitle="Comprehensive insights into your workforce"
-      />
+      /> */}
 
       <div className="d-flex justify-content-between align-items-center mb-4">
-        <div>
-          <h2>Reports & Analytics</h2>
-          <p className="text-muted">Comprehensive insights into your workforce</p>
+        <div className="d-flex align-items-center">
+          <ChartBarIcon style={{ fontSize: 32 }} className="me-3 text-primary" />
+          <div>
+            <h2 className="mb-1" style={{ color: '#111', fontWeight: 700, letterSpacing: '0.5px' }}>Reports & Analytics</h2>
+            <div className="text-muted" style={{ fontSize: '1.1rem' }}>Comprehensive insights into your workforce</div>
+          </div>
         </div>
-        <div>
+        <div className="d-flex align-items-center">
           <button className="btn btn-outline-success px-4 me-2" onClick={handleSendReport}>
             <i className="fas fa-envelope me-2"></i>Email Report to EMS Support Team
           </button>
@@ -186,7 +189,7 @@ const Reports = () => {
       {/* Report Type Selector */}
       <div className="card mb-4">
         <div className="card-body">
-          <div className="btn-group" role="group">
+          <fieldset className="btn-group" style={{ border: 0, padding: 0, margin: 0 }}>
             <button
               type="button"
               className={`btn btn-outline-primary px-4 me-2${selectedReport === 'department' ? ' active' : ''}`}
@@ -211,7 +214,7 @@ const Reports = () => {
             >
               Hiring Trends
             </button>
-          </div>
+          </fieldset>
         </div>
       </div>
 
@@ -254,7 +257,7 @@ const Reports = () => {
                     </thead>
                     <tbody>
                       {departmentData.map((dept, index) => (
-                        <tr key={index}>
+                        <tr key={dept.department || index}>
                           <td>{dept.department}</td>
                           <td>{dept.count}</td>
                           <td>${dept.avgSalary.toLocaleString(undefined, {maximumFractionDigits: 0})}</td>
@@ -308,7 +311,7 @@ const Reports = () => {
                     </thead>
                     <tbody>
                       {salaryData.map((range, index) => (
-                        <tr key={index}>
+                        <tr key={range.range || index}>
                           <td>{range.range}</td>
                           <td>{range.count}</td>
                           <td>${range.totalBonus.toLocaleString()}</td>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { PieChart, Pie, Cell, Tooltip, Legend, BarChart, Bar, XAxis, YAxis, CartesianGrid, ResponsiveContainer } from 'recharts';
 import EmployeeService from '../../services/EmployeeService';
-import PageHeader from '../layout/PageHeader';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTachometerAlt } from '@fortawesome/free-solid-svg-icons';
 
@@ -21,20 +21,20 @@ const Dashboard = () => {
     try {
       setLoading(true);
       setError(null);
-      
+
       const response = await EmployeeService.getAllEmployees();
       const employees = response.data;
-      
+
       // Calculate dashboard metrics
       const totalEmployees = employees.length;
-      
+
       // Group by department
       const byDepartment = employees.reduce((acc, emp) => {
         const dept = emp.department || 'Unknown';
         acc[dept] = (acc[dept] || 0) + 1;
         return acc;
       }, {});
-      
+
       // Group by salary range
       const bySalaryRange = employees.reduce((acc, emp) => {
         const salary = emp.salary || 0;
@@ -43,16 +43,16 @@ const Dashboard = () => {
         else if (salary < 50000) range = '30K - 50K';
         else if (salary < 80000) range = '50K - 80K';
         else range = '80K+';
-        
+
         acc[range] = (acc[range] || 0) + 1;
         return acc;
       }, {});
-      
+
       // Get recent employees (last 5)
       const recentEmployees = employees
         .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
         .slice(0, 5);
-      
+
       setDashboardData({
         totalEmployees,
         byDepartment,
@@ -75,9 +75,9 @@ const Dashboard = () => {
     return (
       <div className="text-center mt-5">
         <img src="/logo.ico" alt="Loading..." style={{ width: 56, height: 56, marginBottom: 16, animation: 'pulse 1.5s infinite' }} />
-        <div className="spinner-border" role="status">
+        <output className="spinner-border">
           <span className="visually-hidden">Loading...</span>
-        </div>
+        </output>
         <p className="mt-2">Loading dashboard data...</p>
       </div>
     );
@@ -112,11 +112,16 @@ const Dashboard = () => {
 
   return (
     <div className="container mt-4">
-      <PageHeader
-        icon={DashboardIcon}
-        title="Dashboard"
-        subtitle="Overview of your organization"
-      />
+      <div className="d-flex align-items-center mb-2">
+        < DashboardIcon style={{ fontSize: 28 }} className="me-2 text-primary" />
+        <span style={{ fontWeight: 600, fontSize: '1.7rem', color: '#212529' }}>
+          Dashboard
+        </span>
+      </div>
+      <div className="mb-4" style={{ fontSize: '1.1rem', color: '#444' }}>
+        Overview of your organization.
+      </div>
+
 
       <div className="row">
         {/* Summary Cards */}
@@ -143,7 +148,7 @@ const Dashboard = () => {
                 <div className="card-body">
                   <h5 className="card-title">Avg Salary</h5>
                   <h2 className="card-text">
-                    {recentEmployees.length > 0 
+                    {recentEmployees.length > 0
                       ? Math.round(recentEmployees.reduce((sum, emp) => sum + (emp.salary || 0), 0) / recentEmployees.length).toLocaleString()
                       : '0'
                     }
@@ -182,8 +187,8 @@ const Dashboard = () => {
                       fill="#8884d8"
                       label
                     >
-                      {deptData.map((_, index) => (
-                        <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                      {deptData.map((entry, index) => (
+                        <Cell key={entry.name || index} fill={COLORS[index % COLORS.length]} />
                       ))}
                     </Pie>
                     <Tooltip />

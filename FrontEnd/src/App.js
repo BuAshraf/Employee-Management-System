@@ -25,21 +25,22 @@ const EmployeeList = lazyLoad(() => import('./components/employee/EmployeeList')
 const AddEmployee = lazyLoad(() => import('./components/employee/AddEmployee'));
 const UpdateEmployee = lazyLoad(() => import('./components/employee/UpdateEmployee'));
 const EmployeeDetails = lazyLoad(() => import('./components/employee/EmployeeDetails'));
+const Dashboard = lazyLoad(() => import('./components/dashboard/Dashboard'));
 const Reports = lazyLoad(() => import('./components/pages/Reports'));
 const Settings = lazyLoad(() => import('./components/pages/Settings'));
 
 // Loading component with logo
 const LoadingComponent = () => (
   <div className="d-flex flex-column align-items-center justify-content-center" style={{ minHeight: '50vh' }}>
-    <img 
-      src="/logo.ico" 
-      alt="Loading..." 
+    <img
+      src="/logo11.png"
+      alt="Loading..."
       style={{ width: '64px', height: '64px', animation: 'pulse 1.5s ease-in-out infinite' }}
       className="mb-3"
     />
-    <div className="spinner-border text-primary" role="status">
+    <output className="spinner-border text-primary">
       <span className="visually-hidden">Loading...</span>
-    </div>
+    </output>
     <p className="mt-2 text-muted">Loading Employee Management System...</p>
   </div>
 );
@@ -56,23 +57,15 @@ function App() {
           {/* main content */}
           <main className="container-fluid mt-3 mb-5 flex-grow-1">
             <Routes>
-              {/*  Home */}
+              {/* Home */}
               <Route path="/" element={<Home />} />
 
-              {/* Dashboard */}
-              <Route
-                path="/dashboard"
-                element={
-                  <Suspense fallback={<div>Loading Dashboard...</div>}>
-                    {React.createElement(lazyLoad(() => import('./components/dashboard/Dashboard')))}
-                  </Suspense>
-                }
-              />
-
-              {/* Home/All Employees */}
+              {/* Employee Management */}
               <Route
                 path="/employees"
-                element={<Home />}
+                element={
+                    <EmployeeList />
+                }
               />
 
               <Route
@@ -80,8 +73,7 @@ function App() {
                 element={
                   <>
                     <PageHeader
-                      icon={undefined}
-                      title="Add Employee"
+                      title="Add New Employee"
                       subtitle="Enter the details of the new employee."
                     />
                     <AddEmployee />
@@ -92,30 +84,19 @@ function App() {
               <Route
                 path="/employees/edit/:id"
                 element={
-                  <>
-                    <PageHeader
-                      icon={undefined}
-                      title="Edit Employee"
-                      subtitle="Update the employee's information."
-                    />
                     <UpdateEmployee />
-                  </>
                 }
               />
 
               <Route
                 path="/employees/view/:id"
                 element={
-                  <>
-                    <PageHeader
-                      icon={undefined}
-                      title="Employee Details"
-                      subtitle="View employee details."
-                    />
                     <EmployeeDetails />
-                  </>
                 }
               />
+
+              {/* Dashboard */}
+              <Route path="/dashboard" element={<Dashboard />} />
 
               {/* Reports */}
               <Route path="/reports" element={<Reports />} />
@@ -144,7 +125,7 @@ function App() {
         </Suspense>
       </Router>
 
-      <style jsx>{`
+      <style>{`
         @keyframes pulse {
           0%, 100% {
             opacity: 1;

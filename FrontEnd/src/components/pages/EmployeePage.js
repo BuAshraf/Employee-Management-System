@@ -9,22 +9,28 @@ const UsersIcon = (props) => <FontAwesomeIcon icon={faUsers} className="text-pri
 
 export default function EmployeePage() {
   return (
-    <>
-      <PageHeader
-        icon={UsersIcon}
-        title="Employees"
-        subtitle="View, edit or delete your team members below."
-        breadcrumbs={[
-          { label: 'Home', to: '/' },
-          { label: 'Employees' }              // no `to` on last crumb => current page
-        ]}
-        actions={[
-          { label: 'Add Employee', to: '/employees/add', variant: 'primary' }
-        ]}
-      />
+    <div className="container mt-4">
+      <div className="d-flex justify-content-between align-items-center mb-4">
+        <div className="d-flex align-items-center">
+          <UsersIcon style={{ fontSize: 32 }} className="me-3 text-primary" />
+          <div>
+            <h2 className="mb-1" style={{ color: '#111', fontWeight: 700, letterSpacing: '0.5px' }}>Employees</h2>
+            <div className="text-muted" style={{ fontSize: '1.1rem' }}>View, edit or delete your team members below.</div>
+            breadcrumbs={[
+              { label: 'Home', to: '/' },
+              { label: 'Employees' }              // no `to` on last crumb => current page
+            ]}
+            actions={[
+              { label: 'Add Employee', to: '/employees/add', variant: 'primary' }
+            ]}
+          </div>
+        </div>
+      </div>
 
       {/* the actual table + search */}
       <EmployeeList />
-    </>
+
+    </div>
+
   );
 }

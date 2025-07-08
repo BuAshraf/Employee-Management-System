@@ -2,11 +2,9 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import EmployeeService from '../../services/EmployeeService';
 import { toast } from 'react-toastify';
-import PageHeader from '../layout/PageHeader';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUserPlus } from '@fortawesome/free-solid-svg-icons';
 
-const UserPlusIcon = (props) => <FontAwesomeIcon icon={faUserPlus} className="text-primary" {...props} />;
+
+
 
 const AddEmployee = () => {
   const navigate = useNavigate();
@@ -60,12 +58,15 @@ const AddEmployee = () => {
 
   return (
     <div className="container mt-4">
-      <PageHeader
-        icon={UserPlusIcon}
-        title="Add New Employee"
-        subtitle="Enter the details of the new employee."
-      />
-
+      <div className="d-flex align-items-center mb-2">
+        <span style={{ fontSize: 28, color: '#007bff' }} className="me-2" aria-label="Add Employee" title="Add Employee">👤</span>
+        <span style={{ fontWeight: 600, fontSize: '1.7rem', color: '#212529' }}>
+          Add New Employee
+        </span>
+      </div>
+      <div className="mb-4" style={{ fontSize: '1.1rem', color: '#444' }}>
+        Enter the details of the new employee.
+      </div>
       <form onSubmit={handleSubmit}>
         <div className="row">
           <div className="col-md-6 mb-3">

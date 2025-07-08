@@ -101,6 +101,9 @@ export default function Navbar() {
       setTimeout(() => setShowNotification(false), 2500);
     } catch (error) {
       setSending(false);
+      // Optionally log error for debugging
+      // eslint-disable-next-line no-console
+      if (process.env.NODE_ENV === 'development') console.error(error);
       alert('Failed to send support request. Please try again.');
     }
   };
@@ -114,9 +117,9 @@ export default function Navbar() {
       <div className="container-fluid">
         {/* Brand with logo */}
         <Link className="navbar-brand fw-bold d-flex align-items-center" to="/">
-          <img 
+          <img
             src={process.env.PUBLIC_URL + '/logo.ico'}
-            alt="EMS Logo" 
+            alt="EMS Logo"
             style={{ width: '32px', height: '32px' }}
             className="me-2"
           />
@@ -141,182 +144,192 @@ export default function Navbar() {
         {/* Collapsible nav items */}
         <div className={`collapse navbar-collapse ${!isCollapsed ? 'show' : ''}`} id="navbarSupportedContent">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-
-
             <li className="nav-item">
               <Link className={`nav-link px-3 ${isActive('/')}`} to="/">
-                <i className="fas fa-users me-1"></i>
+                <i className="fas fa-home me-1" aria-hidden="true"></i>
+                Home
+              </Link>
+            </li>
+
+            <li className="nav-item">
+              <Link className={`nav-link px-3 ${isActive('/employees')}`} to="/employees">
+                <i className="fas fa-users me-1" aria-hidden="true"></i>
                 Employees
               </Link>
             </li>
 
-            <li className="nav-item">
-              <Link className={`nav-link px-3 ${isActive('/dashboard')}`} to="/dashboard">
-                <i className="fas fa-tachometer-alt me-1"></i>
-                Dashboard
-              </Link>
-            </li>
 
-            <li className="nav-item">
-              <Link className={`nav-link px-3 ${isActive('/reports')}`} to="/reports">
-                <i className="fas fa-chart-bar me-1"></i>
-                Reports
-              </Link>
-            </li>
-          </ul>
+          <li className="nav-item">
+            <Link className={`nav-link px-3 ${isActive('/dashboard')}`} to="/dashboard">
+              <span style={{ display: 'inline-block', width: 20, marginRight: 8 }}><i className="fas fa-tachometer-alt" aria-hidden="true"></i></span>&nbsp;
+              Dashboard
+            </Link>
+          </li>
 
-          {/* Theme Switcher */}
-          <div className="d-flex align-items-center me-3">
-            <select
-              className="form-select form-select-sm bg-dark text-light border-0 shadow-none"
-              style={{ width: 90, minWidth: 90, background: 'linear-gradient(90deg,#23272b,#181a1b)', color: '#fff', fontWeight: 500 }}
-              value={theme}
-              onChange={handleThemeChange}
-              aria-label="Theme Switcher"
+          <li className="nav-item">
+            <Link className={`nav-link px-3 ${isActive('/reports')}`} to="/reports">
+              <span style={{ display: 'inline-block', width: 20, marginRight: 8 }}><i className="fas fa-chart-bar" aria-hidden="true"></i></span>&nbsp;
+              Reports
+            </Link>
+          </li>
+        </ul>
+
+        {/* Theme Switcher */}
+        <div className="d-flex align-items-center me-3">
+          <select
+            className="form-select form-select-sm bg-dark text-light border-0 shadow-none"
+            style={{ width: 90, minWidth: 90, background: 'linear-gradient(90deg,#23272b,#181a1b)', color: '#fff', fontWeight: 500 }}
+            value={theme}
+            onChange={handleThemeChange}
+            aria-label="Theme Switcher"
+          >
+            <option value="light">☀ Light</option>
+            <option value="dark">🌙 Dark</option>
+            <option value="auto">🖥 Auto</option>
+          </select>
+        </div>
+        {/* Right side items */}
+        <ul className="navbar-nav">
+          {/* Quick Actions */}
+          <li className="nav-item dropdown me-2">
+            <button
+              className="nav-link dropdown-toggle btn btn-link p-0 border-0"
+              id="quickActionsDropdown"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+              tabIndex={0}
+              aria-haspopup="true"
+              type="button"
+              style={{ boxShadow: 'none', background: 'none' }}
             >
-              <option value="light">☀ Light</option>
-              <option value="dark">🌙 Dark</option>
-              <option value="auto">🖥 Auto</option>
-            </select>
-          </div>
-          {/* Right side items */}
-          <ul className="navbar-nav">
-            {/* Quick Actions */}
-            <li className="nav-item dropdown me-2">
-             <button
-               className="nav-link dropdown-toggle btn btn-link p-0 border-0"
-               id="quickActionsDropdown"
-               data-bs-toggle="dropdown"
-               aria-expanded="false"
-               tabIndex={0}
-               aria-haspopup="true"
-               type="button"
-               style={{ boxShadow: 'none', background: 'none' }}
-             >
-               <i className="fas fa-bolt me-1"></i>
-               <span className="d-none d-lg-inline">Quick Actions</span>
-             </button>
-              <ul className="dropdown-menu dropdown-menu-end">
-                <li>
-                  <Link className="dropdown-item" to="/employees/add">
-                    <i className="fas fa-user-plus me-2 text-success"></i>Add Employee
-                  </Link>
-                </li>
-                <li>
-                  <Link className="dropdown-item" to="/reports">
-                    <i className="fas fa-chart-line me-2 text-success"></i>View Reports
-                  </Link>
-                </li>
-                <li><hr className="dropdown-divider" /></li>
-                <li>
-                  <button className="dropdown-item" type="button" onClick={(e) => e.preventDefault()}>
-                    <i className="fas fa-download me-2 text-info"></i>Export Data
-                  </button>
-                 </li>
-              </ul>
-            </li>
+              <i className="fas fa-bolt me-1"></i>
+              <span className="d-none d-lg-inline">Quick Actions</span>
+            </button>
+            <ul className="dropdown-menu dropdown-menu-end">
+              <li>
+                <Link className="dropdown-item" to="/employees/add">
+                  <i className="fas fa-user-plus me-2 text-primary"></i>Add Employee
+                </Link>
+              </li>
+              <li>
+                <Link className="dropdown-item" to="/reports">
+                  <i className="fas fa-chart-line me-2 text-success"></i>View Reports
+                </Link>
+              </li>
+              <li><hr className="dropdown-divider" /></li>
+              <li>
+                <button className="dropdown-item" type="button" onClick={(e) => e.preventDefault()}>
+                  <i className="fas fa-download me-2 text-info"></i>Export Data
+                </button>
+              </li>
+            </ul>
+          </li>
 
-            {/* User Profile */}
-             <li className="nav-item dropdown">
-               <button
-                 className="nav-link dropdown-toggle d-flex align-items-center btn btn-link p-0 border-0"
-                 id="navbarDropdown"
-                 data-bs-toggle="dropdown"
-                 aria-expanded="false"
-                 tabIndex={0}
-                 aria-haspopup="true"
-                 type="button"
-                 style={{ boxShadow: 'none', background: 'none' }}
-               >
-                 <div className="bg-white rounded-circle d-flex align-items-center justify-content-center me-2" 
-                      style={{ width: '28px', height: '28px' }}>
-                   <i className="fas fa-user text-primary" style={{ fontSize: '14px' }}></i>
-                 </div>
-                 <span className="d-none d-lg-inline">Admin</span>
-               </button>
-              <ul className="dropdown-menu dropdown-menu-end">
-                <li>
-                  <div className="dropdown-header">
-                    <strong>Administrator</strong>
-                    <br />
-                    <small className="text-muted">admin@ems.com</small>
-                  </div>
-                </li>
-                <li><hr className="dropdown-divider" /></li>
-                <li>
-                  <Link className="dropdown-item" to="/profile">
-                    <i className="fas fa-user me-2"></i>My Profile
-                  </Link>
-                </li>
-                <li>
-                  <Link className="dropdown-item" to="/settings">
-                    <i className="fas fa-cog me-2"></i>Settings
-                  </Link>
-                </li>
-                <li>
-                  <button className="dropdown-item" type="button" onClick={handleSupportClick}>
-                    <i className="fas fa-question-circle me-2"></i>Help & Support
-                  </button>
-                </li>
-                <li><hr className="dropdown-divider" /></li>
-                <li>
-                  <button className="dropdown-item text-danger" type="button" onClick={(e) => e.preventDefault()}>
-                    <i className="fas fa-sign-out-alt me-2"></i>Logout
-                  </button>
-                </li>
-              </ul>
-            </li>
-          </ul>
+          {/* User Profile */}
+          <li className="nav-item dropdown">
+            <button
+              className="nav-link dropdown-toggle d-flex align-items-center btn btn-link p-0 border-0"
+              id="navbarDropdown"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+              tabIndex={0}
+              aria-haspopup="true"
+              type="button"
+              style={{ boxShadow: 'none', background: 'none' }}
+            >
+              <div className="bg-white rounded-circle d-flex align-items-center justify-content-center me-2"
+                style={{ width: '28px', height: '28px' }}>
+                <i className="fas fa-user text-primary" style={{ fontSize: '14px' }}></i>
+              </div>
+              <span className="d-none d-lg-inline">Admin</span>
+            </button>
+            <ul className="dropdown-menu dropdown-menu-end">
+              <li>
+                <div className="dropdown-header">
+                  <strong>Administrator</strong>
+                  <br />
+                  <small className="text-muted">admin@ems.com</small>
+                </div>
+              </li>
+              <li><hr className="dropdown-divider" /></li>
+              <li>
+                <Link className="dropdown-item" to="/profile">
+                  <i className="fas fa-user me-2"></i>My Profile
+                </Link>
+              </li>
+              <li>
+                <Link className="dropdown-item" to="/settings">
+                  <i className="fas fa-cog me-2"></i>Settings
+                </Link>
+              </li>
+              <li>
+                <button className="dropdown-item" type="button" onClick={handleSupportClick}>
+                  <i className="fas fa-question-circle me-2"></i>Help & Support
+                </button>
+              </li>
+              <li><hr className="dropdown-divider" /></li>
+              <li>
+                <button className="dropdown-item text-danger" type="button" onClick={(e) => e.preventDefault()}>
+                  <i className="fas fa-sign-out-alt me-2"></i>Logout
+                </button>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+      {/* Support Popup */ }
+  {
+    showSupportPopup && (
+      <div style={{
+        position: 'fixed',
+        top: '60px',
+        left: 0,
+        width: '320px',
+        height: '180px',
+        background: '#fff',
+        boxShadow: '2px 2px 12px rgba(0,0,0,0.15)',
+        borderRadius: '8px',
+        zIndex: 2000,
+        padding: '18px 16px',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'flex-start',
+        justifyContent: 'center',
+      }}>
+        <div style={{ fontWeight: 600, marginBottom: 8 }}>Support Request</div>
+        <div style={{ fontSize: 13, marginBottom: 12 }}>A screenshot of your current screen will be sent to our support team.</div>
+        <div style={{ display: 'flex', gap: 8, width: '100%' }}>
+          <button className="btn btn-primary btn-sm" style={{ minWidth: 70 }} onClick={handleSendSupport} disabled={sending}>
+            {sending ? 'Sending...' : 'Send'}
+          </button>
+          <button className="btn btn-outline-secondary btn-sm" onClick={handleCloseSupport} disabled={sending}>Cancel</button>
         </div>
       </div>
+    )
+  }
 
-      {/* Support Popup */}
-      {showSupportPopup && (
-        <div style={{
-          position: 'fixed',
-          top: '60px',
-          left: 0,
-          width: '320px',
-          height: '180px',
-          background: '#fff',
-          boxShadow: '2px 2px 12px rgba(0,0,0,0.15)',
-          borderRadius: '8px',
-          zIndex: 2000,
-          padding: '18px 16px',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'flex-start',
-          justifyContent: 'center',
-        }}>
-          <div style={{fontWeight: 600, marginBottom: 8}}>Support Request</div>
-          <div style={{fontSize: 13, marginBottom: 12}}>A screenshot of your current screen will be sent to our support team.</div>
-          <div style={{display: 'flex', gap: 8, width: '100%'}}>
-            <button className="btn btn-primary btn-sm" style={{minWidth: 70}} onClick={handleSendSupport} disabled={sending}>
-              {sending ? 'Sending...' : 'Send'}
-            </button>
-            <button className="btn btn-outline-secondary btn-sm" onClick={handleCloseSupport} disabled={sending}>Cancel</button>
-          </div>
-        </div>
-      )}
-
-      {/* Thin Notification */}
-      {showNotification && (
-        <div style={{
-          position: 'fixed',
-          top: '20px',
-          left: '20px',
-          background: '#e6f7e6',
-          color: '#218838',
-          border: '1px solid #b2dfb2',
-          borderRadius: '4px',
-          padding: '8px 18px',
-          fontWeight: 500,
-          zIndex: 3000,
-          boxShadow: '1px 1px 8px rgba(0,0,0,0.08)'
-        }}>
-          Thank you for sharing
-        </div>
-      )}
-    </nav>
+  {/* Thin Notification */ }
+  {
+    showNotification && (
+      <div style={{
+        position: 'fixed',
+        top: '20px',
+        left: '20px',
+        background: '#e6f7e6',
+        color: '#218838',
+        border: '1px solid #b2dfb2',
+        borderRadius: '4px',
+        padding: '8px 18px',
+        fontWeight: 500,
+        zIndex: 3000,
+        boxShadow: '1px 1px 8px rgba(0,0,0,0.08)'
+      }}>
+        Thank you for sharing
+      </div>
+    )
+  }
+    </nav >
   );
 }

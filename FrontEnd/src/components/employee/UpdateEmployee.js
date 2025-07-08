@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import EmployeeService from '../../services/EmployeeService';
 import { toast } from 'react-toastify';
-import PageHeader from '../layout/PageHeader';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserEdit } from '@fortawesome/free-solid-svg-icons';
 
@@ -101,11 +100,15 @@ const UpdateEmployee = () => {
 
   return (
     <div className="container mt-4">
-      <PageHeader
-        icon={UserEditIcon}
-        title="Edit Employee"
-        subtitle="Update the employee's information."
-      />
+      <div className="d-flex align-items-center mb-2">
+        <UserEditIcon style={{ fontSize: 28 }} className="me-2 text-primary" />
+        <span style={{ fontWeight: 600, fontSize: '1.7rem', color: '#212529' }}>
+          Edit Employee
+        </span>
+      </div>
+      <div className="mb-4" style={{ fontSize: '1.1rem', color: '#444' }}>
+        Update the employee's information.
+      </div>
 
       <form onSubmit={handleSubmit}>
         <div className="row">

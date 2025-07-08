@@ -39,17 +39,19 @@ const SearchEmployee = ({ onSearch, onClear }) => {
           <input
             type="text"
             className="form-control"
-            placeholder="Search by name, email, position, or department"
+            placeholder="Search by name, email"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
           />
           <div className="input-group-append">
-            <button type="submit" className="btn btn-primary" disabled={loading}>
+            <button type="submit" className="btn btn-outline-primary" disabled={!query || loading}>
+              <i className="fas fa-search me-2"></i>
               {loading ? 'Searching...' : 'Search'}
             </button>
             <button
               type="button"
-              className="btn btn-secondary"
+              className="btn btn-outline-secondary"
+              disabled={!query || loading}
               onClick={handleClear}
             >
               Clear

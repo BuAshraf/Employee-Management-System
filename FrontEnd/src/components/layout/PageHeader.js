@@ -48,12 +48,11 @@ export default function PageHeader({
           </nav>
         )}
 
-        {subtitle && (
-          <div className="d-flex align-items-center mb-3">
-            {Icon && <Icon className="me-2 text-primary fs-3" />}
-            <span className="fw-bold fs-4 text-dark">{subtitle}</span>
-          </div>
-        )}
+        <h1 className="mb-3 text-primary d-flex align-items-center">
+          {Icon && <Icon className="me-2" />}
+          {title}
+        </h1>
+        {subtitle && <p className="text-secondary mb-2 fs-6">{subtitle}</p>}
       </div>
 
       {actions.length > 0 && (
