@@ -1,0 +1,64 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.4.5'
+	id 'io.spring.dependency-management' version '1.1.7'
+}
+
+group = 'com.ems'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(17)
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'  // Add this for health checks
+	implementation 'org.springframework.boot:spring-boot-starter-security'  // Add Spring Security
+
+	// Lombok for reducing boilerplate code
+	implementation 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+
+
+
+
+
+	// Add validation
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+	// Add Spring Batch for batch processing
+	implementation 'org.springframework.boot:spring-boot-starter-batch'
+	// Add Spring Integration for messaging
+	implementation 'org.springframework.boot:spring-boot-starter-integration'
+	// Add Spring WebSocket for real-time communication
+	implementation 'org.springframework.boot:spring-boot-starter-websocket'
+
+
+
+
+	compileOnly 'org.projectlombok:lombok'
+
+	runtimeOnly 'com.mysql:mysql-connector-j'
+	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'io.projectreactor:reactor-test'
+	testImplementation 'org.springframework.batch:spring-batch-test'
+	testImplementation 'org.springframework.integration:spring-integration-test'
+	testImplementation 'org.springframework.security:spring-security-test'
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+	testImplementation platform('org.junit:junit-bom:5.10.0')
+	testImplementation 'org.junit.jupiter:junit-jupiter'
+
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
