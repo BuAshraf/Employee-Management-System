@@ -34,3 +34,6 @@ gradle/
 *.ear
 out/
 .env
+package.json
+package-lock.json
+
