@@ -34,6 +34,7 @@ const EmployeeDetails = lazyLoad(() => import('./components/employee/EmployeeDet
 const Dashboard = lazyLoad(() => import('./components/dashboard/Dashboard'));
 const Reports = lazyLoad(() => import('./components/reports/Reports'));
 const Settings = lazyLoad(() => import('./components/pages/Settings'));
+const NotificationPage = lazyLoad(() => import('./components/pages/NotificationPage'));
 // Auth pages removed
 const DepartmentList = lazyLoad(() => import('./components/department/DepartmentList'));
 const Profile = lazyLoad(() => import('./components/profile/Profile.jsx'));
@@ -114,6 +115,10 @@ const AppContent = () => {
 
             <Route path="/settings" element={
               <Settings />
+            } />
+
+            <Route path="/notifications" element={
+              <NotificationPage />
             } />
 
             <Route path="/admin" element={

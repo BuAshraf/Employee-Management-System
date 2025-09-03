@@ -12,10 +12,10 @@ export function ThemeProvider({ children }) {
   // Save theme to localStorage whenever it changes
   useEffect(() => {
     localStorage.setItem('theme', theme);
-    
+
     // Apply theme to document
     const root = document.documentElement;
-    
+
     if (theme === 'dark') {
       root.classList.add('dark');
     } else if (theme === 'light') {

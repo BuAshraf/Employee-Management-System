@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import {
   Users,
   UserPlus,
@@ -14,7 +15,8 @@ import {
   Edit3,
   Trash2,
   ArrowUpRight,
-  ArrowDownRight
+  ArrowDownRight,
+  ArrowLeft
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useI18n } from '../../i18n';
@@ -143,7 +145,7 @@ const EnhancedDashboard = () => {
       changeType: 'positive',
       icon: Users,
       color: 'blue',
-  description: t('activeEmployees')
+      description: t('activeEmployees')
     },
     {
       label: t('departments'),
@@ -151,7 +153,7 @@ const EnhancedDashboard = () => {
       change: null,
       icon: Building2,
       color: 'purple',
-  description: t('operatingUnits')
+      description: t('operatingUnits')
     },
     {
       label: t('avgSalary'),
@@ -160,7 +162,7 @@ const EnhancedDashboard = () => {
       changeType: 'positive',
       icon: DollarSign,
       color: 'green',
-  description: t('perEmployee')
+      description: t('perEmployee')
     },
     {
       label: t('newHires'),
@@ -169,7 +171,7 @@ const EnhancedDashboard = () => {
       changeType: 'positive',
       icon: UserPlus,
       color: 'orange',
-  description: t('thisMonth')
+      description: t('thisMonth')
     }
   ], [dashboardData, t]);
 
@@ -316,7 +318,7 @@ const EnhancedDashboard = () => {
             animate={{ opacity: 1, y: 0 }}
             className="mb-8"
           >
-            <div className="d-flex align-items-center justify-content-between flex-wrap gap-3">
+            <div className="flex items-start md:items-center justify-between flex-wrap gap-4">
               <div>
                 <h1 className="text-3xl font-bold text-slate-800 mb-2">
                   {t('dashboard')}, {user?.name}! 👋
@@ -331,18 +333,19 @@ const EnhancedDashboard = () => {
                   </span>
                 </div>
               </div>
-              <div className="d-flex align-items-center">
-                <button
-                  onClick={() => navigate('/')}
-                  className="btn btn-outline-primary px-4"
+              <div className="flex items-center gap-3 flex-wrap">
+                <Link
+                  to="/"
+                  aria-label={t('backToHome')}
+                  className="inline-flex items-center gap-2 h-9 px-3 border border-slate-300 text-slate-600 rounded-lg hover:bg-slate-50 hover:text-slate-700 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500/50"
                 >
-                  <i className="fas fa-home me-2"></i>
-                  {t('home') || 'Home'}
-                </button>
+                  <ArrowLeft size={16} className="shrink-0" />
+                  <span className="hidden sm:inline">{t('backToHome')}</span>
+                </Link>
                 <select
                   value={dateRange}
                   onChange={(e) => setDateRange(e.target.value)}
-                  className="form-select form-select-sm ms-3 px-3 py-2 border border-slate-300 rounded-lg text-sm"
+                  className="h-9 px-3 border border-slate-300 rounded-lg text-sm bg-white focus:outline-none focus:ring-2 focus:ring-blue-500/50"
                   style={{ minWidth: '140px' }}
                 >
                   <option value="week">{t('thisWeek')}</option>
@@ -352,7 +355,7 @@ const EnhancedDashboard = () => {
                 </select>
                 <button
                   onClick={() => loadDashboardData(true)}
-                  className="btn btn-outline-secondary btn-sm ms-2 d-inline-flex align-items-center justify-content-center"
+                  className="inline-flex items-center justify-center h-9 w-9 rounded-lg border border-slate-300 text-slate-600 hover:bg-slate-50 transition-colors disabled:opacity-50"
                   disabled={refreshing}
                   aria-label={t('refresh') || 'Refresh'}
                   title={t('refresh') || 'Refresh'}

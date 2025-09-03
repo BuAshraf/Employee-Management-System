@@ -1,6 +1,5 @@
 
 import React, { useState } from 'react';
-import Privacy from './Privacy';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUsers, faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
@@ -10,7 +9,6 @@ const UsersIcon = (props) => <FontAwesomeIcon icon={faUsers} className="text-pri
 
 function Home() {
   const { t, lang } = useI18n();
-  const [showPrivacy, setShowPrivacy] = useState(false);
   const [showPageSelector, setShowPageSelector] = useState(false);
 
   return (
@@ -71,13 +69,13 @@ function Home() {
             )}
           </div> */}
 
-          <button
+          {/* <button
             onClick={() => setShowPrivacy(true)}
             className="btn btn-outline-primary px-4"
           >
             <i className="fas fa-shield-alt me-2"></i>
             {t('privacyPolicy') || 'Privacy Policy'}
-          </button>
+          </button> */}
         </div>
       </div>
 
@@ -203,26 +201,9 @@ function Home() {
             </div>
           </div>
         </div>
-      </div>
-
-      {/* Privacy Policy Modal */}
-      {showPrivacy && (
-        <div className="modal fade show" tabIndex="-1" style={{ display: 'block', background: 'rgba(0,0,0,0.25)' }}>
-          <div className="modal-dialog modal-lg modal-dialog-centered">
-            <div className="modal-content">
-              <div className="modal-header">
-                <h5 className="modal-title">{t('privacyPolicy') || 'Privacy Policy'}</h5>
-                <button type="button" className="btn-close" aria-label="Close" onClick={() => setShowPrivacy(false)}></button>
-              </div>
-              <div className="modal-body" style={{ maxHeight: '60vh', overflowY: 'auto' }}>
-                <Privacy />
-              </div>
-            </div>
-          </div>
         </div>
-      )}
-    </div>
+      </div>
   );
-}
+};
 
 export default Home;

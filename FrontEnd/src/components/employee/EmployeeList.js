@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import {
   Search,
   Filter,
@@ -17,7 +17,7 @@ import {
   ArrowLeft,
   UserPlus,
   ChevronDown,
-  
+
 } from 'lucide-react';
 import { useI18n } from '../../i18n';
 import EmployeeService from '../../services/EmployeeService';
@@ -25,9 +25,10 @@ import EmployeeService from '../../services/EmployeeService';
 
 const EmployeeList = () => {
   const { t, lang } = useI18n();
-  
+  const location = useLocation();
+
   // Auth removed
-  
+
   const [employees, setEmployees] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedDepartment, setSelectedDepartment] = useState('');
@@ -41,9 +42,22 @@ const EmployeeList = () => {
 
   // Fetch all employees
   const loadEmployees = async () => {
+    const params = new URLSearchParams(location.search);
+    const q = params.get('search') || '';
+    setSearchTerm(q);
     try {
       console.log('Loading employees...');
-      const res = await EmployeeService.getAllEmployees();
+      let res;
+      if (q) {
+        try {
+          res = await EmployeeService.searchEmployees(q);
+        } catch (e) {
+          console.warn('Search API failed; falling back to full list + client filter', e);
+          res = await EmployeeService.getAllEmployees();
+        }
+      } else {
+        res = await EmployeeService.getAllEmployees();
+      }
       console.log('API Response:', res);
 
       // Ensure we always set an array, even if the response is unexpected
@@ -56,7 +70,7 @@ const EmployeeList = () => {
         ...emp,
         // Ensure name field exists - combine firstName and lastName if name is not provided
         name: emp.name || (emp.firstName && emp.lastName ? `${emp.firstName} ${emp.lastName}` : emp.firstName || emp.lastName || 'N/A'),
-        username: emp.username || (emp.firstName && emp.lastName ? 
+        username: emp.username || (emp.firstName && emp.lastName ?
           `${emp.firstName.toLowerCase()}.${emp.lastName.toLowerCase()}` : 'N/A')
       }));
 
@@ -73,7 +87,8 @@ const EmployeeList = () => {
 
   useEffect(() => {
     loadEmployees();
-  }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [location.search]);
 
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -187,9 +202,9 @@ const EmployeeList = () => {
 
             {/* Dropdown menu with proper styling */}
             {showDropdown === employee.id && (
-              <div 
+              <div
                 className="absolute right-0 top-full mt-1 w-56 bg-white rounded-md shadow-xl z-[9999] border border-slate-200"
-                style={{ 
+                style={{
                   position: 'absolute',
                   right: '0',
                   top: '100%',
@@ -206,7 +221,7 @@ const EmployeeList = () => {
                     <Edit size={14} className={lang === 'ar' ? 'ml-2' : 'mr-2'} />
                     {t('editEmployee') || 'Edit Employee'}
                   </Link>
-                  
+
                   {/* Status Update Dropdown */}
                   <div className="border-t border-slate-100 my-1"></div>
                   <button
@@ -217,7 +232,7 @@ const EmployeeList = () => {
                     {t('updateStatus') || 'Update Status'}
                     <ChevronDown size={14} className={`${lang === 'ar' ? 'mr-auto' : 'ml-auto'} transition-transform ${showStatusSubmenu === employee.id ? 'rotate-180' : ''}`} />
                   </button>
-                  
+
                   {/* Status Options - Only show when submenu is open */}
                   {showStatusSubmenu === employee.id && (
                     <div className={`${lang === 'ar' ? 'mr-4 border-r-2' : 'ml-4 border-l-2'} border-slate-100`}>
@@ -232,7 +247,7 @@ const EmployeeList = () => {
                         <span className={`w-2 h-2 bg-green-500 rounded-full ${lang === 'ar' ? 'ml-2' : 'mr-2'}`}></span>
                         {t('setActive') || 'Set Active'}
                       </button>
-                      
+
                       <button
                         onClick={() => {
                           setShowDropdown(null);
@@ -244,7 +259,7 @@ const EmployeeList = () => {
                         <span className={`w-2 h-2 bg-red-500 rounded-full ${lang === 'ar' ? 'ml-2' : 'mr-2'}`}></span>
                         {t('setInactive') || 'Set Inactive'}
                       </button>
-                      
+
                       <button
                         onClick={() => {
                           setShowDropdown(null);
@@ -256,7 +271,7 @@ const EmployeeList = () => {
                         <span className={`w-2 h-2 bg-yellow-500 rounded-full ${lang === 'ar' ? 'ml-2' : 'mr-2'}`}></span>
                         {t('setOnLeave') || 'Set On Leave'}
                       </button>
-                      
+
                       <button
                         onClick={() => {
                           setShowDropdown(null);
@@ -270,7 +285,7 @@ const EmployeeList = () => {
                       </button>
                     </div>
                   )}
-                  
+
                   <div className="border-t border-slate-100 my-1"></div>
                   <button
                     onClick={() => {
@@ -316,7 +331,7 @@ const EmployeeList = () => {
           {t('view') || 'View'}
           <ChevronDown size={14} className="ml-1" />
         </button>
-  {/* Admin-only actions removed with auth */}
+        {/* Admin-only actions removed with auth */}
       </div>
     </motion.div>
   );
@@ -537,10 +552,11 @@ const EmployeeList = () => {
             >
               <Link
                 to="/"
-                className={`btn btn-outline-secondary flex items-center justify-center px-5 py-2 border border-slate-300 text-slate-600 rounded-lg hover:bg-slate-50 transition-colors ${lang === 'ar' ? 'space-x-reverse space-x-1' : 'space-x-1'}`}
+                aria-label={t('backToHome')}
+                className="inline-flex items-center gap-2 h-9 px-3 border border-slate-300 text-slate-600 rounded-lg hover:bg-slate-50 hover:text-slate-700 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500/50"
               >
-                <ArrowLeft size={16} className={lang === 'ar' ? 'ml-1' : 'mr-1'} />
-                {t('backToHome') || 'Back to Home'}
+                <ArrowLeft size={16} className="shrink-0" />
+                <span className="hidden sm:inline">{t('backToHome')}</span>
               </Link>
             </button>
 

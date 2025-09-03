@@ -33,7 +33,6 @@ const DepartmentList = () => {
       try {
         const response = await fetch('http://localhost:8080/api/departments');
         const data = await response.json();
-        
         // Convert the departments object to an array
         if (data.departments) {
           const departmentsArray = Object.entries(data.departments).map(([name, dept]) => ({
@@ -63,7 +62,6 @@ const DepartmentList = () => {
         setIsLoading(false);
       }
     };
-    
     fetchDepartments();
   }, []);
 
@@ -189,7 +187,6 @@ const DepartmentList = () => {
               <ArrowLeft size={16} className="mr-2" />
               {t('backToHome')}
             </Link>
-            
             {/* Add Department Button - Always visible */}
             <button
               onClick={() => setShowAddModal(true)}
