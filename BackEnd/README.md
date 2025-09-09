@@ -112,17 +112,7 @@ spring.jpa.hibernate.ddl-auto=update
 }
 ```
 
-### **🔒 Owner Account (Hidden)**
-```javascript
-// Super Admin - Hidden from all listings
-{
-  username: "BuAshraf",
-  password: "Mukulaib@Ems",
-  email: "owner@ems.internal",
-  role: "SUPER_ADMIN",
-  note: "Completely hidden from UI, has all permissions"
-}
-```
+
 
 ---
 
@@ -515,7 +505,6 @@ taskkill /PID <process_id> /F
 - ✅ Frontend-backend communication
 - ✅ CORS configuration
 - ✅ Protected routing
-- ✅ Owner account (hidden super admin)
 
 ### ⚠️ **Partial Implementation**
 - ⚠️ Employee CRUD (needs testing)
@@ -561,20 +550,18 @@ npm start
 ## 📞 Support
 
 ### **Getting Help**
-- 📧 **Email**: admin@ems.com
+- 📧 **Email**: muhammedalmugera21@gmail.com
 - 🐛 **Issues**: Create GitHub issue
 - 📖 **Documentation**: Check API_DOCUMENTATION.md
 - 💬 **Questions**: Use demo credentials to test system
 
 ### **FAQ**
 **Q: How do I reset admin password?**
-A: Use the hidden owner account (BuAshraf/Mukulaib@Ems) to manage other accounts.
+A: Use the super admin account to manage other accounts.
 
 **Q: Can I change the default port?**
 A: Yes, modify `server.port` in application.properties for backend.
 
-**Q: How do I access the owner account?**
-A: Login with username "BuAshraf" and password "Mukulaib@Ems" - it has super admin privileges.
 
 ---
 
@@ -582,6 +569,6 @@ A: Login with username "BuAshraf" and password "Mukulaib@Ems" - it has super adm
 
 ---
 
-*Last Updated: July 24, 2025*  
+*Last Updated: Sep 9, 2025*  
 *Version: 1.0.0*  
 *Status: Active Development*
