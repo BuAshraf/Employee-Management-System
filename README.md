@@ -38,6 +38,8 @@ The **Employee Management System (EMS)** is a **full-stack web application** des
 
 ## 🚀 Features
 
+- Company management: Add, view, update, and delete companies
+- CompanyKey-based login for secure multi-company data separation
 - Add new employees with unique IDs
 - View, search, and filter employees
 - Update employee details (name, department, salary, etc.)
@@ -46,16 +48,15 @@ The **Employee Management System (EMS)** is a **full-stack web application** des
 - File persistence with Excel (Java/POI) or MySQL (Spring Data JPA)
 - Clean code architecture (SOLID principles)
 - Modern, responsive frontend with React and Bootstrap
+- Company management UI (CompanyPage) and sidebar navigation
 
 ---
 
 ## 🔧 Technologies Used
 
-- **Backend:** Java 17, (Spring Boot, Maven/Gradle), Apache POI (Excel handling), MySQL (optional: database storage)
-  
-- **Frontend:** React.js, Bootstrap,  Axios, React Router
-  
-- **Dev Tools:** Git & GitHub (version control, collaboration), VS Code/IntelliJ/Eclipse
+- **Backend:** Java 17, Spring Boot, Gradle, MySQL, MapStruct, Apache POI (Excel/DB), REST API, validation, role-based auth
+- **Frontend:** React.js, MUI, Bootstrap, Axios, React Router, modular services/components
+- **Dev Tools:** Git & GitHub, VS Code/IntelliJ/Eclipse
 
 ---
 
@@ -63,8 +64,9 @@ The **Employee Management System (EMS)** is a **full-stack web application** des
 
 1. **Start** the backend and frontend servers.
 
-2. Use the **web interface** to manage employees:
-    - Add, view, search, update, or delete employees.
+2. Use the **web interface** to manage companies and employees:
+  - Add, view, search, update, or delete companies and employees.
+  - Login with companyKey to access company-specific data.
 
 3. **Data storage**:  
    Data is saved to **Excel** or **MySQL**, depending on your backend configuration.
@@ -77,7 +79,7 @@ The **Employee Management System (EMS)** is a **full-stack web application** des
 
 - **Java 17** or later
 - **Node.js** & **npm**
-- **Maven** or **Gradle** (for backend)
+- **Gradle** (recommended for backend)
 - **IDE:** IntelliJ IDEA, Eclipse, VS Code, or similar
 
 ### Steps
@@ -110,45 +112,36 @@ Access the app at: `http://localhost:3000`
 ```bash
 Employee-Management-System/
 ├── BackEnd/
+│   ├── build.gradle
+│   ├── gradlew
+│   ├── gradlew.bat
+│   ├── settings.gradle
 │   ├── src/
 │   │   ├── main/
 │   │   │   ├── java/
-│   │   │   │   └── com/
-│   │   │   │       └── ems/
-│   │   │   │           └── ems_backend/
-│   │   │   │               ├── config/
-│   │   │   │               ├── controller/
-│   │   │   │               ├── exception/
-│   │   │   │               ├── model/
-│   │   │   │               ├── repository/
-│   │   │   │               ├── service/
-│   │   │   │               └── utils/
 │   │   │   └── resources/
-│   │   │       └── application.properties
-│   ├── pom.xml or build.gradle
-│   └── README.md
-│
+│   │   └── test/
+│   │       └── java/
 ├── FrontEnd/
+│   ├── package.json
 │   ├── public/
 │   ├── src/
 │   │   ├── components/
-│   │   │   └── employee/
-│   │   ├── layout/
-│   │   ├── pages/
+│   │   ├── context/
 │   │   ├── services/
+│   │   ├── styles/
+│   │   ├── utils/
 │   │   ├── App.js
 │   │   └── index.js
-│   ├── package.json
-│   └── README.md
-│
 ├── README.md
+├── SDLC.md
 └── LICENSE
-```
 ## 🌐 Acknowledgements
 
 - [Arjun Gautam](https://github.com/arjungautam1) & [CodeWithArjun YouTube](https://www.youtube.com/@CodeWithArjun)
 - **Apache POI Team** (Excel)
 - **Spring Boot** & **React** communities
+- [Project SDLC Documentation](./SDLC.md)
 
 ---
 
@@ -169,6 +162,13 @@ This project is licensed under the MIT License. See [`LICENSE`](LICENSE) for det
 
 ---
 
+
+---
+## 📖 Additional Documentation
+
+- [SDLC.md](./SDLC.md): Full Software Development Life Cycle documentation for EMS
+
+---
 ## 💬 Get to Know Me  😁 👨‍💻
 
 - 💼 **LinkedIn:** [Connect with me](https://www.linkedin.com/in/muhammed-alkulaib-773492238)

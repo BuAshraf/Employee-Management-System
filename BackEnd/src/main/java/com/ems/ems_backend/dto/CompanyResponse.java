@@ -7,12 +7,9 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class AuthResponse {
-    private String status;
+public class CompanyResponse {
     private Long id;
-    private String email;
-    private String employeeId;
-    private String department;
-    private String role;
+    private String name;
     private String companyKey;
+    private Boolean active;
 }

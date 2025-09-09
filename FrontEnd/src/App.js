@@ -33,6 +33,7 @@ const UpdateEmployee = lazyLoad(() => import('./components/employee/UpdateEmploy
 const EmployeeDetails = lazyLoad(() => import('./components/employee/EmployeeDetails'));
 const Dashboard = lazyLoad(() => import('./components/dashboard/Dashboard'));
 const Reports = lazyLoad(() => import('./components/reports/Reports'));
+const CompanyPage = lazyLoad(() => import('./components/pages/CompanyPage'));
 const Settings = lazyLoad(() => import('./components/pages/Settings'));
 const NotificationPage = lazyLoad(() => import('./components/pages/NotificationPage'));
 // Auth pages removed
@@ -76,8 +77,8 @@ const AppContent = () => {
             {/* Auth routes removed */}
 
             {/* Protected Routes */}
-            <Route path="/" element={
-              <Home />
+            <Route path="/" element={<Home />} />
+            <Route path="/companies" element={<CompanyPage />} />
             } />
 
             <Route path="/employees" element={

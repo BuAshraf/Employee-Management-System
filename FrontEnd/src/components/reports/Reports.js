@@ -6,6 +6,7 @@ import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import { Link } from 'react-router-dom';
 import EmployeeService from '../../services/EmployeeService';
+import CompanyService from '../../services/CompanyService';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, LineChart, Line } from 'recharts';
 import emailjs from 'emailjs-com';
 import {
@@ -48,6 +49,10 @@ const Reports = () => {
 
   useEffect(() => {
     loadEmployees();
+    CompanyService.list().then(companies => {
+      // You can set company info in state or context here
+      // setCompanyList(companies.content || []);
+    });
   }, []);
 
   const loadEmployees = async () => {

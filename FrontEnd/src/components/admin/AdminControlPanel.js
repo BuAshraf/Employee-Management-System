@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import CompanyService from '../../services/CompanyService';
 import { useI18n } from '../../i18n';
 import { toast } from 'react-toastify';
 
@@ -42,6 +43,10 @@ const AdminControlPanel = () => {
 
   useEffect(() => {
     fetchSystemData();
+    CompanyService.list().then(companies => {
+      // You can set company info in state or context here
+      // setCompanyList(companies.content || []);
+    });
   }, [fetchSystemData]);
 
   if (loading) {

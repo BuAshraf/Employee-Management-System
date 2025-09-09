@@ -8,6 +8,7 @@ import com.ems.ems_backend.model.User;
 import com.ems.ems_backend.model.Employee;
 import com.ems.ems_backend.repository.UserRepository;
 import com.ems.ems_backend.repository.EmployeeRepository;
+import com.ems.ems_backend.service.CompanyService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -27,11 +28,15 @@ public class AuthController {
     private final UserRepository userRepository;
     private final EmployeeRepository employeeRepository;
     private final PasswordEncoder encoder;
+    private final CompanyService companyService;
 
     @PostMapping("/login")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
 
-        // Simple authentication without JWT
+    // Validate company key first (tenant selection)
+    companyService.requireActiveByKey(loginRequest.getCompanyKey());
+
+    // Simple authentication without JWT
         Optional<User> userOpt = userRepository.findByEmail(loginRequest.getEmail());
 
         if (userOpt.isEmpty()) {
@@ -63,13 +68,14 @@ public class AuthController {
         String department = employeeOpt.map(Employee::getDepartment).orElse(null);
 
         // Return simple response without JWT token
-        return ResponseEntity.ok(new AuthResponse(
-                "authenticated",
-                user.getId(),
-                user.getEmail(),
-                employeeId,
-                department,
-                user.getRole().name()));
+    return ResponseEntity.ok(new AuthResponse(
+        "authenticated",
+        user.getId(),
+        user.getEmail(),
+        employeeId,
+        department,
+        user.getRole().name(),
+        loginRequest.getCompanyKey()));
     }
 
     @PostMapping("/register")
@@ -125,13 +131,14 @@ public class AuthController {
         User user = userOpt.get();
         Optional<Employee> employeeOpt = employeeRepository.findByUser(user);
 
-        return ResponseEntity.ok(new AuthResponse(
-                "authenticated",
-                user.getId(),
-                user.getEmail(),
-                employeeOpt.map(Employee::getEmployeeId).orElse(null),
-                employeeOpt.map(Employee::getDepartment).orElse(null),
-                user.getRole().name()));
+    return ResponseEntity.ok(new AuthResponse(
+        "authenticated",
+        user.getId(),
+        user.getEmail(),
+        employeeOpt.map(Employee::getEmployeeId).orElse(null),
+        employeeOpt.map(Employee::getDepartment).orElse(null),
+        user.getRole().name(),
+        null));
     }
 
     @PostMapping("/logout")

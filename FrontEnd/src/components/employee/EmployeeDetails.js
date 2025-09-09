@@ -69,7 +69,21 @@ const EmployeeDetails = () => {
   if (!employee) return <div>Loading employee details...</div>;
 
   return (
-    <div className="container mt-4" dir={lang === 'ar' ? 'rtl' : 'ltr'} style={lang === 'ar' ? { textAlign: 'right' } : {}}>
+    <div
+      className="container mt-4"
+      dir={lang === 'ar' ? 'rtl' : 'ltr'}
+      style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        width: '100vw',
+        height: '100vh',
+        zIndex: 9999,
+        background: 'rgba(255,255,255,0.98)',
+        overflowY: 'auto',
+        ...(lang === 'ar' ? { textAlign: 'right' } : {}),
+      }}
+    >
 
 
 

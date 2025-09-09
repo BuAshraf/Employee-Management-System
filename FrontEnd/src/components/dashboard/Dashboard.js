@@ -21,6 +21,7 @@ import {
 import { useNavigate } from 'react-router-dom';
 import { useI18n } from '../../i18n';
 import EmployeeService from '../../services/EmployeeService';
+import CompanyService from '../../services/CompanyService';
 import {
   PieChart, Pie, Cell, Tooltip,
   BarChart, Bar, XAxis, YAxis, CartesianGrid,
@@ -54,6 +55,14 @@ const EnhancedDashboard = () => {
   const CHART_COLORS = {
     primary: ['#3B82F6', '#10B981', '#8B5CF6', '#F59E0B', '#EF4444', '#06B6D4']
   };
+
+  // Example: Load company info for dashboard context
+  useEffect(() => {
+    CompanyService.list().then(companies => {
+      // You can set company info in state or context here
+      // setCompanyList(companies.content || []);
+    });
+  }, []);
 
   const loadDashboardData = async (showRefreshAnimation = false) => {
     try {

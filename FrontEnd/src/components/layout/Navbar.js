@@ -38,6 +38,7 @@ import { useTheme as useAppTheme } from '../../context/ThemeContext';
 import EMSLogoPattern from './LogoConfig';
 import SideNavigation, { DrawerHeader as NavDrawerHeader } from './SideNavigation';
 import NotificationService from '../../services/NotificationService';
+import { HomeIcon } from 'lucide-react';
 
 const drawerWidth = 240;
 
@@ -131,10 +132,12 @@ export default function Navbar() {
   const [spinReverseMode, setSpinReverseMode] = React.useState(false);
 
   const navigationItems = [
-  { name: t('dashboard'), href: '/dashboard', icon: <DashboardIcon /> },
+    { name: t('home') || 'Home', href: '/', icon: <HomeIcon /> },
+    { name: t('dashboard'), href: '/dashboard', icon: <DashboardIcon /> },
     { name: t('employees'), href: '/employees', icon: <PeopleIcon /> },
     { name: t('departments'), href: '/departments', icon: <ApartmentIcon /> },
     { name: t('reports'), href: '/reports', icon: <BarChartIcon /> },
+    { name: t('companies') || 'Companies', href: '/companies', icon: <ApartmentIcon /> },
   ];
 
   const handleDrawerOpen = () => setOpen(true);

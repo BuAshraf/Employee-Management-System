@@ -10,5 +10,9 @@ public class LoginRequest {
 
     @NotBlank
     private String password;
+
+    // New: required to login to a specific company/tenant
+    @NotBlank
+    private String companyKey;
 }
 
