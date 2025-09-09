@@ -34,11 +34,3 @@
 - Add new features and improve UX based on feedback.
 
 ---
-
-## SDLC Prompt Example
-
-> “Generate a full SDLC markdown for a React + Spring Boot Employee Management System, including requirements, design, implementation, testing, deployment, and maintenance steps. Make it clear, concise, and actionable for a team.”
-
----
-
-You can use this SDLC file as a template for documentation, onboarding, or future planning. If you want a more detailed breakdown for any phase, let me know!

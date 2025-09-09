@@ -79,7 +79,7 @@ const AppContent = () => {
             {/* Protected Routes */}
             <Route path="/" element={<Home />} />
             <Route path="/companies" element={<CompanyPage />} />
-            } />
+
 
             <Route path="/employees" element={
               <EmployeeList />
