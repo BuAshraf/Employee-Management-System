@@ -1,7 +1,7 @@
 # <p align="center">Employee Management System (EMS)</p>
 
 <p align="center">
-  <img src="https://github.com/BuAshraf/Employee-Management-System/blob/main/assets/EMS_logo.jpg" height="260">
+  <img src="https://github.com/BuAshraf/Employee-Management-System/blob/main/EMS_logo.jpg" height="260">
 </p>
 
 <p align="center">
