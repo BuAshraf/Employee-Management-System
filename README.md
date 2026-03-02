@@ -29,8 +29,8 @@ The **Employee Management System (EMS)** is a **full-stack web application** des
 ## 🎥 Demo
 
 <p align="center">
-  <img
-    src="https://raw.githubusercontent.com/BuAshraf/Employee-Management-System/main/EMS_DEMO.gif"
+  <p align="center">
+  <img src="https://github.com/BuAshraf/Employee-Management-System/raw/main/EMS_DEMO.gif"  
     width="700"
     alt="Employee Management System Demo"
   />
