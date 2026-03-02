@@ -6,7 +6,7 @@
 
 <p align="center">
   <a href="https://github.com/BuAshraf/Employee-Management-System"><img alt="Repo Stars" src="https://img.shields.io/github/stars/BuAshraf/Employee-Management-System?style=for-the-badge"></a>
-  <a href="https://github.com/BuAshraf/Employee-Management-System/blob/main/LICENSE"><img alt="MIT License" src="https://img.shields.io/github/license/BuAshraf/Employee-Management-System?style=for-the-badge"></a>
+  <a href="https://github.com/BuAshraf/Employee-Management-System/LICENSE"><img alt="MIT LICENSE" src="https://img.shields.io/github/license/BuAshraf/Employee-Management-System?style=for-the-badge"></a>
   <a href="https://github.com/BuAshraf/Employee-Management-System/commits/main"><img alt="Last Commit" src="https://img.shields.io/github/last-commit/BuAshraf/Employee-Management-System?style=for-the-badge"></a>
 </p>
 
